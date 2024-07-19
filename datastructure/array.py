@@ -10,7 +10,6 @@ class Vector:
     
     def set(self, i: int, n: int) -> None:
         self.array[i] = n
-        self.length += 1
         
     def pushback(self, n: int) -> None:
         if self.length == self.capacity:
@@ -20,7 +19,8 @@ class Vector:
         self.length += 1
         
     def popback(self) -> int:
-        return self.array[self.length-1]
+        self.length -= 1
+        return self.array[self.length]
     
     def resize(self) -> None:
         self.capacity = self.capacity * 2
