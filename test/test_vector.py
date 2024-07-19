@@ -11,9 +11,9 @@ def vector(capacity: int) -> Vector:
 
 @pytest.fixture
 def vector_with_elements(vector: Vector) -> Vector:
-    vector.set(0, 0)
-    vector.set(1, 4)
-    vector.set(2, 7)
+    vector.pushback(0)
+    vector.pushback(4)
+    vector.pushback(7)
     return vector
 
 class TestVector:
@@ -59,3 +59,44 @@ class TestVector:
         assert vector_with_elements.get(3) == 9
         assert vector_with_elements.getSize() == 4
         assert vector_with_elements.getCapacity() == 2 * initial_capacity
+    
+    def test_capacity_no_resize(self) -> None:
+        vector = Vector(1)
+        
+        assert vector.getSize() == 0
+        assert vector.getCapacity() == 1
+        
+    def test_capacity_resize_grow(self) -> None:
+        vector = Vector(1)
+        vector.pushback(1)
+        
+        assert vector.getCapacity() == 1
+        
+        vector.pushback(2)
+        assert vector.getCapacity() == 2
+        
+    def test_capacity_resize_shrink(self) -> None:
+        vector = Vector(1)
+        
+        assert vector.getSize() == 0
+        assert vector.getCapacity() == 1
+        
+        vector.pushback(1)
+        
+        assert vector.getSize() == 1
+        assert vector.getCapacity() == 1
+        
+        vector.pushback(2)
+        
+        assert vector.getSize() == 2
+        assert vector.getCapacity() == 2
+        
+        assert vector.get(1) == 2
+        
+        vector.set(1, 3)
+        
+        assert vector.get(1) == 3
+        assert vector.popback() == 3
+        assert vector.getSize() == 1
+        assert vector.getCapacity() == 2
+        
