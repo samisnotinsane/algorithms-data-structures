@@ -17,6 +17,12 @@ def vector_with_elements(vector: Vector) -> Vector:
     return vector
 
 class TestVector:
+    def test_getCapacity(self, vector_with_elements: Vector) -> None:
+        assert vector_with_elements.getCapacity() == 3
+        
+    def test_getSize(self, vector_with_elements: Vector) -> None:
+        assert vector_with_elements.getSize() == 3
+    
     def test_set(self, vector_with_elements: Vector) -> None:
         assert vector_with_elements.array == [0, 4, 7]
         
@@ -25,3 +31,5 @@ class TestVector:
         assert vector_with_elements.get(1) == 4
         assert vector_with_elements.get(2) == 7
         
+    def test_popback(self, vector_with_elements: Vector) -> None:
+        assert vector_with_elements.popback() == 7
