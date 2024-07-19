@@ -22,6 +22,9 @@ class TestVector:
         
     def test_getSize(self, vector_with_elements: Vector) -> None:
         assert vector_with_elements.getSize() == 3
+        
+    def test_popback(self, vector_with_elements: Vector) -> None:
+        assert vector_with_elements.popback() == 7
     
     def test_set(self, vector_with_elements: Vector) -> None:
         assert vector_with_elements.array == [0, 4, 7]
@@ -30,6 +33,29 @@ class TestVector:
         assert vector_with_elements.get(0) == 0
         assert vector_with_elements.get(1) == 4
         assert vector_with_elements.get(2) == 7
+
+    def test_resize(self, vector_with_elements: Vector) -> None:
+        initial_capacity = vector_with_elements.getCapacity()
         
-    def test_popback(self, vector_with_elements: Vector) -> None:
-        assert vector_with_elements.popback() == 7
+        vector_with_elements.resize()
+        
+        assert vector_with_elements.getCapacity() == 2 * initial_capacity
+
+    def test_pushback_when_array_empty(self, vector: Vector) -> None:
+        vector.pushback(0)
+        
+        assert vector.get(0) == 0
+        assert vector.getSize() == 1
+        assert vector.getCapacity() == 3
+
+    def test_pushback_when_array_full(self, vector_with_elements: Vector) -> None:
+        initial_capacity = vector_with_elements.getCapacity()
+        
+        vector_with_elements.pushback(9)
+        
+        assert vector_with_elements.get(0) == 0
+        assert vector_with_elements.get(1) == 4
+        assert vector_with_elements.get(2) == 7
+        assert vector_with_elements.get(3) == 9
+        assert vector_with_elements.getSize() == 4
+        assert vector_with_elements.getCapacity() == 2 * initial_capacity
